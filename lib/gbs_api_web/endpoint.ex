@@ -7,7 +7,7 @@ defmodule GbsApiWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_gbs_api_key",
-    signing_salt: "wkpm/0hk"
+    signing_salt: "cw70AVWT"
   ]
 
   socket "/socket", GbsApiWeb.UserSocket,
@@ -29,8 +29,6 @@ defmodule GbsApiWeb.Endpoint do
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
-    socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
-    plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
     plug Phoenix.Ecto.CheckRepoStatus, otp_app: :gbs_api
   end

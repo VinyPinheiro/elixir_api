@@ -20,4 +20,4 @@ RUN cd assets && npm install
 # Compile the project
 RUN mix do compile
 
-CMD iex -S mix phx.server
+CMD mix ecto.create && iex -S mix phx.server

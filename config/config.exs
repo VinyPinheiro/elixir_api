@@ -8,15 +8,16 @@
 use Mix.Config
 
 config :gbs_api,
-  ecto_repos: [GbsApi.Repo]
+  ecto_repos: [GbsApi.Repo],
+  generators: [binary_id: true]
 
 # Configures the endpoint
 config :gbs_api, GbsApiWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "oCaAEXNo8ILKFYvXZwLtWHdivl+TLyJXdSGyOeVbcLmNamOlBL4LKcOx+VES66+J",
-  render_errors: [view: GbsApiWeb.ErrorView, accepts: ~w(html json), layout: false],
+  secret_key_base: "a0LQskj7VJpcm9ipQzRbz1KCmVM9sBbAVzIKcKNq4eCaQbe9Tjs5UAl02PgVrJsH",
+  render_errors: [view: GbsApiWeb.ErrorView, accepts: ~w(json), layout: false],
   pubsub_server: GbsApi.PubSub,
-  live_view: [signing_salt: "AwcXbefh"]
+  live_view: [signing_salt: "69mu1wnO"]
 
 # Configures Elixir's Logger
 config :logger, :console,
