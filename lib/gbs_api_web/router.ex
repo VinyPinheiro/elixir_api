@@ -5,8 +5,10 @@ defmodule GbsApiWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", GbsApiWeb do
+  scope "/v1", GbsApiWeb do
     pipe_through :api
+
+    post "/films", FilmsController, :create
   end
 
   # Enables LiveDashboard only for development
