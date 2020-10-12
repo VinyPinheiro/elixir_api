@@ -9,6 +9,7 @@ defmodule GbsApiWeb.Router do
     pipe_through :api
 
     post "/films", FilmsController, :create
+    resources "/jobs", JobsController, only: [:show]
   end
 
   # Enables LiveDashboard only for development
