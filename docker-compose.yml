@@ -40,7 +40,7 @@ services:
       DATABASE_PASSWORD: password
       DATABASE_USER: username
       DATABASE_DB: gbs_api_dev
-      OMDBAPI_TOKEN: 373cf7e2
+      OMDBAPI_TOKEN: token
       RABBITMQ_HOST: rabbitmq
       RABBITMQ_PASSWORD: guest
       RABBITMQ_USER: guest

@@ -37,15 +37,18 @@ defmodule Workers.ProcessFilm do
   end
 
   defp call(payload) do
+    omdb_result = request_omdb(payload["title"])
+    Store.create_film_unless_title_exist(de_para(omdb_result))
+    Store.update_job_finish_task(payload["job_id"])
+  end
+
+  defp request_omdb(title) do
     token = System.get_env("OMDBAPI_TOKEN")
     url = "http://www.omdbapi.com/"
 
-    IO.puts "#{payload["title"]}"
-
-    parameters = [apikey: token, t: payload["title"]]
+    parameters = [apikey: token, t: title]
     {:ok, response} = HTTPoison.get(url, [], params: parameters)
     parsed = Poison.decode!(response.body)
-    Store.create_film_unless_title_exist(de_para(parsed))
   end
 
   defp de_para(hash) do

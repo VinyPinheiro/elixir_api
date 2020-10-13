@@ -209,6 +209,21 @@ defmodule GbsApi.Store do
     |> Repo.update()
   end
 
+
+  @doc """
+  Updates number of tasks finished in job.
+
+  ## Examples
+
+      iex> update_job_finish_task(123)
+      %Postgrex.Result{}
+
+  """
+  def update_job_finish_task(id) do
+    query = "UPDATE jobs SET processed=processed+1, updated_at=NOW() WHERE id::text=$1"
+    Ecto.Adapters.SQL.query!(Repo, query, [id])
+  end
+
   @doc """
   Deletes a job.
 
