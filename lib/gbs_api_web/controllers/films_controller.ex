@@ -5,9 +5,10 @@ defmodule GbsApiWeb.FilmsController do
 
   action_fallback GbsApiWeb.FallbackController
   def create(conn, %{"_json" => params}) do
-    publish_messages(params)
 
     job = create_job(Enum.count(params))
+    publish_messages(params, job.id)
+
     json conn, job
   end
 
@@ -20,18 +21,15 @@ defmodule GbsApiWeb.FilmsController do
     job
   end
 
-  def publish_messages(request_body) do
-    token = "373cf7e2"
-    url = "http://www.omdbapi.com/"
+  defp publish_messages(request_body, job_id) do
+    for item <- request_body do
+      message = %{
+        title: item["title"],
+        job_id: job_id
+      }
+      {:ok, msg_sender } = Poison.encode(message)
 
-    lista = for item <- request_body do
-      parameters = [apikey: token, t: item["title"]]
-      {:ok, response} = HTTPoison.get(url, [], params: parameters)
-
-      parsed = Poison.decode!(response.body)
-
-      Store.create_film_unless_title_exist(de_para(parsed))
-      de_para(parsed)
+      Events.FilmPublisher.publish(msg_sender)
     end
   end
 

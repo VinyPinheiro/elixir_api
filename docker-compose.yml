@@ -1,7 +1,8 @@
-version: '3'
+version: '3.4'
 services:
   app:
     build: .
+    image: app
     ports:
     - 4000:4000/tcp
     volumes:
@@ -9,10 +10,51 @@ services:
     stdin_open: true
     tty: true
     depends_on:
+      - rabbitmq
       - database
+    environment:
+      DATABASE_HOST: database
+      DATABASE_PASSWORD: password
+      DATABASE_USER: username
+      DATABASE_DB: gbs_api_dev
+      OMDBAPI_TOKEN: 373cf7e2
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PASSWORD: guest
+      RABBITMQ_USER: guest
+      RABBITMQ_PORT: 5672
+
+  worker:
+    build: .
+    image: app
+    volumes:
+    - .:/opt/app
+    stdin_open: true
+    tty: true
+    restart: always
+    command: mix run workers/process_film.ex
+    depends_on:
+      - rabbitmq
+      - database
+    environment:
+      DATABASE_HOST: database
+      DATABASE_PASSWORD: password
+      DATABASE_USER: username
+      DATABASE_DB: gbs_api_dev
+      OMDBAPI_TOKEN: 373cf7e2
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PASSWORD: guest
+      RABBITMQ_USER: guest
+      RABBITMQ_PORT: 5672
+
   database:
     image: postgres
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: username
       POSTGRES_DB: gbs_api_dev
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"

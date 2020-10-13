@@ -1,11 +1,12 @@
 use Mix.Config
 
 # Configure your database
+
 config :gbs_api, GbsApi.Repo,
-  username: "username",
-  password: "password",
-  database: "gbs_api_dev",
-  hostname: "database",
+  username: System.get_env("DATABASE_USER"),
+  password: System.get_env("DATABASE_PASSWORD"),
+  database: System.get_env("DATABASE_DB"),
+  hostname: System.get_env("DATABASE_HOST"),
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
