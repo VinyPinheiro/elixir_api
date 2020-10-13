@@ -2,12 +2,12 @@ defmodule GbsApiWeb.FilmsController do
   use GbsApiWeb, :controller
 
   alias GbsApi.Store
+  alias GbsApiWeb.FilmsController
 
   action_fallback GbsApiWeb.FallbackController
   def create(conn, %{"_json" => params}) do
-
     job = create_job(Enum.count(params))
-    publish_messages(params, job.id)
+    spawn(FilmsController, :publish_messages, [params, job.id])
 
     json conn, job
   end
@@ -26,7 +26,7 @@ defmodule GbsApiWeb.FilmsController do
     job
   end
 
-  defp publish_messages(request_body, job_id) do
+  def publish_messages(request_body, job_id) do
     for item <- request_body do
       message = %{
         title: item["title"],

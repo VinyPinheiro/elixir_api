@@ -37,8 +37,10 @@ defmodule Workers.ProcessFilm do
   end
 
   defp call(payload) do
-    omdb_result = request_omdb(payload["title"])
-    Store.create_film_unless_title_exist(de_para(omdb_result))
+    if Enum.count(GbsApi.Store.search_film([title: payload["title"]])) == 0 do
+      omdb_result = request_omdb(payload["title"])
+      Store.create_film_unless_title_exist(de_para(omdb_result))
+    end
     Store.update_job_finish_task(payload["job_id"])
   end
 
@@ -48,7 +50,7 @@ defmodule Workers.ProcessFilm do
 
     parameters = [apikey: token, t: title]
     {:ok, response} = HTTPoison.get(url, [], params: parameters)
-    Poison.decode(response.body)
+    Poison.decode!(response.body)
   end
 
   defp de_para(hash) do
