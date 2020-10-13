@@ -8,7 +8,7 @@ defmodule GbsApiWeb.Router do
   scope "/v1", GbsApiWeb do
     pipe_through :api
 
-    post "/films", FilmsController, :create
+    resources "/films", FilmsController, only: [:create, :index]
     resources "/jobs", JobsController, only: [:show]
   end
 

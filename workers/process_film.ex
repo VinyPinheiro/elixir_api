@@ -48,7 +48,7 @@ defmodule Workers.ProcessFilm do
 
     parameters = [apikey: token, t: title]
     {:ok, response} = HTTPoison.get(url, [], params: parameters)
-    parsed = Poison.decode!(response.body)
+    Poison.decode(response.body)
   end
 
   defp de_para(hash) do

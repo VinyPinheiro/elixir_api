@@ -12,7 +12,12 @@ defmodule GbsApiWeb.FilmsController do
     json conn, job
   end
 
-  def create_job(total) do
+  def index(conn, _params) do
+    films = Store.list_films()
+    json conn, films
+  end
+
+  defp create_job(total) do
     attr = %{
       total: total,
       processed: 0
@@ -31,16 +36,5 @@ defmodule GbsApiWeb.FilmsController do
 
       Events.FilmPublisher.publish(msg_sender)
     end
-  end
-
-  def de_para(hash) do
-    %{
-      title: hash["Title"],
-      year: hash["Year"],
-      director:  String.split(hash["Director"], ", "),
-      poster: hash["Poster"],
-      genders: String.split(hash["Genre"], ", "),
-      actors: String.split(hash["Actors"], ", ")
-    }
   end
 end
