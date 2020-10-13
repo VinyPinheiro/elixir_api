@@ -3,7 +3,7 @@ defmodule Events.FilmPublisher do
     channel_name = "films"
     {:ok, connection} = AMQP.Connection.open(amqp_connection_string())
     {:ok, channel} = AMQP.Channel.open(connection)
-    AMQP.Queue.declare(channel, channel_name)
+    AMQP.Queue.declare(channel, channel_name, durable: true)
 
     AMQP.Basic.publish(channel, "", channel_name, message)
     IO.puts "Publicado #{message}"

@@ -12,7 +12,7 @@ defmodule Workers.ProcessFilm do
       channel_name = "films"
       {:ok, connection} = AMQP.Connection.open(amqp_connection_string())
       {:ok, channel} = AMQP.Channel.open(connection)
-      AMQP.Queue.declare(channel, channel_name)
+      AMQP.Queue.declare(channel, channel_name, durable: true)
       AMQP.Basic.consume(channel, channel_name, nil, no_ack: true)
       Agent.start_link(fn -> [] end, name: :batcher)
       _run()

@@ -1,0 +1,180 @@
+FORMAT: 1A
+HOST: http://localhost:4000/v1/
+
+# Films API
+
+This API is responsible for feeding the database of films through informed titles.
+
+# Group Films
+
+## Film [/films]
+### Create Film [POST /]
++ Attributes
+  + title(string, required) - Title of film
+
++ Request (application/json)
+  [
+    {
+      "title":"Captain Marvel"
+    },
+    {
+      "title":"Spider-Man"
+    },
+    {
+      "title":"Glee"
+    },
+    {
+      "title":"Airplane!"
+    },
+    {
+      "title":"Doctor Strange"
+    }
+  ]
+
++ Response 200 (application/json)
+  {
+      "id": "94216588-478a-444e-9243-6a8654dd03fb",
+      "inserted_at": "2020-10-13T12:12:06",
+      "processed": 0,
+      "total": 5,
+      "updated_at": "2020-10-13T12:12:06"
+  }
+
+### Show all Films [GET /]
+
++ Response 200 (application/json)
+  [
+      {
+          "title": "Guardians of the Galaxy",
+          "genders": [
+              "Action",
+              "Adventure",
+              "Comedy",
+              "Sci-Fi"
+          ],
+          "year": "2014",
+          "director": [
+              "James Gunn"
+          ],
+          "actors": [
+              "Chris Pratt",
+              "Zoe Saldana",
+              "Dave Bautista",
+              "Vin Diesel"
+          ],
+          "poster": "https://m.media-amazon.com/images/M/MV5BMTAwMjU5OTgxNjZeQTJeQWpwZ15BbWU4MDUxNDYxODEx._V1_SX300.jpg"
+      },
+      {
+          "title": "Captain Marvel",
+          "genders": [
+              "Action",
+              "Adventure",
+              "Sci-Fi"
+          ],
+          "year": "2019",
+          "director": [
+              "Anna Boden",
+              "Ryan Fleck"
+          ],
+          "actors": [
+              "Brie Larson",
+              "Samuel L. Jackson",
+              "Ben Mendelsohn",
+              "Jude Law"
+          ],
+          "poster": "https://m.media-amazon.com/images/M/MV5BMTE0YWFmOTMtYTU2ZS00ZTIxLWE3OTEtYTNiYzBkZjViZThiXkEyXkFqcGdeQXVyODMzMzQ4OTI@._V1_SX300.jpg"
+      },
+      {
+          "title": "Spider-Man",
+          "genders": [
+              "Action",
+              "Adventure",
+              "Sci-Fi"
+          ],
+          "year": "2002",
+          "director": [
+              "Sam Raimi"
+          ],
+          "actors": [
+              "Tobey Maguire",
+              "Willem Dafoe",
+              "Kirsten Dunst",
+              "James Franco"
+          ],
+          "poster": "https://m.media-amazon.com/images/M/MV5BZDEyN2NhMjgtMjdhNi00MmNlLWE5YTgtZGE4MzNjMTRlMGEwXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_SX300.jpg"
+      },
+      {
+          "title": "Glee",
+          "genders": [
+              "Comedy",
+              "Drama",
+              "Music",
+              "Musical"
+          ],
+          "year": "2009–2015",
+          "director": [
+              "N/A"
+          ],
+          "actors": [
+              "Chris Colfer",
+              "Jane Lynch",
+              "Lea Michele",
+              "Matthew Morrison"
+          ],
+          "poster": "https://m.media-amazon.com/images/M/MV5BYWJhZjNjZjUtM2JlZC00ZWE3LWJmZDItMDRhMWJkMTJhZDhkXkEyXkFqcGdeQXVyMTkzODUwNzk@._V1_SX300.jpg"
+      },
+      {
+          "title": "Airplane!",
+          "genders": [
+              "Comedy"
+          ],
+          "year": "1980",
+          "director": [
+              "Jim Abrahams",
+              "David Zucker",
+              "Jerry Zucker"
+          ],
+          "actors": [
+              "Kareem Abdul-Jabbar",
+              "Lloyd Bridges",
+              "Peter Graves",
+              "Julie Hagerty"
+          ],
+          "poster": "https://m.media-amazon.com/images/M/MV5BZjA3YjdhMWEtYjc2Ni00YzVlLWI0MTUtMGZmNTJjNmU0Yzk2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg"
+      },
+      {
+          "title": "Doctor Strange",
+          "genders": [
+              "Action",
+              "Adventure",
+              "Fantasy",
+              "Sci-Fi"
+          ],
+          "year": "2016",
+          "director": [
+              "Scott Derrickson"
+          ],
+          "actors": [
+              "Benedict Cumberbatch",
+              "Chiwetel Ejiofor",
+              "Rachel McAdams",
+              "Benedict Wong"
+          ],
+          "poster": "https://m.media-amazon.com/images/M/MV5BNjgwNzAzNjk1Nl5BMl5BanBnXkFtZTgwMzQ2NjI1OTE@._V1_SX300.jpg"
+      }
+  ]
+
+## Job [/jobs]
+### Show job status [GET /{job_id}]
++ Attributes
+  + job_id(string, required) - Id of the job
+
+
++ Response 200 (application/json)
+  {
+      "id": "de320e68-5b8d-47f6-befb-9cf7b882b270",
+      "inserted_at": "2020-10-13T16:13:43",
+      "processed": 5,
+      "total": 5,
+      "updated_at": "2020-10-13T16:13:43"
+  }

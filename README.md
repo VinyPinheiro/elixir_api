@@ -1,19 +1,31 @@
-# GbsApi
+# GBS Films
 
-To start your Phoenix server:
+This API is responsible for feeding the database of films through informed titles.
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Start Phoenix endpoint with `mix phx.server`
+This project is splited in API and one worker.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+* **API** is responsible to send all titles request to RabbitMq, retrieve processed films and job status.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+* **Worker** is responsible to get message in RabbitMq and execute request to amdbapi to retrieve film information and save in local database.  
 
-## Learn more
+## Dependencies
+- Docker
+- Docker-compose
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+## First Execution
+
+1. Run `docker-compose build`
+2. Run `docker-compose run --rm app mix setup`
+3. To start Run `docker-compose up`
+4. Project is running.
+
+**Obs.:** If necessary more workers, using flag `--scale worker=total_of_workers` after `docker-compose command`
+
+## Routes
+
+The routes can see in ENDPOINTS.apib. My sugestion is run `docker run -it --rm -v $PWD:/doc -p 8088:8088  --entrypoint='' quay.io/bukalapak/snowboard:v1 snowboard html -o output.html -b 0.0.0.0:8088 -s ENDPOINTS.apib`
+
+## TO DO
+* Create tests
+* Treat unexpected request body
+* Add cache instead of querying data existence in the database
